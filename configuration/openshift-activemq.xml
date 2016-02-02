@@ -113,12 +113,12 @@
         -->
         <persistenceAdapter>
              <jdbcPersistenceAdapter dataSource="#postgres-ds"
-                lockKeepAlivePeriod="${AMQ_LOCK_KEEP_ALIVE_PERIOD}"
-                createTablesOnStartup="${AMQ_DB_CREATE_TABLE_ON_STARTUP}">
+                lockKeepAlivePeriod="5000"
+                createTablesOnStartup="false">
                 <locker>
                     <lease-database-locker
-                        lockAcquireSleepInterval="${AMQ_LOCK_ACQUIRE_SLEEP_INTERVAL}"
-                        maxAllowableDiffFromDBTime="${AMQ_MAX_ALLOWABLE_DIFF_FROM_DB_TIME}" />
+                        lockAcquireSleepInterval="10000"
+                        maxAllowableDiffFromDBTime="1000" />
                 </locker>
             </jdbcPersistenceAdapter>
 
@@ -177,14 +177,14 @@
     -->
 
     <bean id="postgres-ds" class="org.postgresql.ds.PGPoolingDataSource">
-        <property name="serverName" value="${AMQ_DB_HOST}" />
-        <property name="databaseName" value="${AMQ_DB_NAME}" />
-        <property name="portNumber" value="${AMQ_DB_PORT}" />
-        <property name="user" value="${AMQ_DB_USER}" />
-        <property name="password" value="${AMQ_DB_PASS}" />
+        <property name="serverName" value="192.168.99.100" />
+        <property name="databaseName" value="public" />
+        <property name="portNumber" value="5432" />
+        <property name="user" value="root" />
+        <property name="password" value="postgresql" />
         <property name="dataSourceName" value="postgres" />
-        <property name="initialConnections" value="${AMQ_DB_INIT_CONNECTION}" />
-        <property name="maxConnections" value="${AMQ_DB_MAX_CONNECTION}" />
+        <property name="initialConnections" value="1" />
+        <property name="maxConnections" value="10" />
     </bean>
 
 </beans>
