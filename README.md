@@ -28,8 +28,18 @@ In addition to the existing Jboss A-MQ Paas Image vars, you'll need the followin
 	AMQ_DB_INIT_CONNECTION=1
 	AMQ_DB_MAX_CONNECTION=10
 
+## needs a postgres - docker run command
+
+	docker run -d --restart=always \
+	  -v /var/appdata/postgres-db:/var/lib/postgresql \
+	  -v /var/appdata/postgres-db/recon-db/data:/var/lib/postgresql/data \
+	  -e POSTGRES_PASSWORD=postgresql \
+	  -p 5432:5432 \
+	  --name postgres-db \
+	  postgres:9.5
+
 ## Build it
 
 	s2i build git://github.com/pmorie/simple-ruby openshift/ruby-20-centos7 test-ruby-app
-	
-	s2i build git://github.com/pmorie/simple-ruby openshift/ruby-20-centos7 test-ruby-app
+
+	s2i build git@github.com:welshstew/jboss-amq-jdbc-dockerfile.git registry.access.redhat.com/jboss-amq-6/amq62-openshift test-amq-app
