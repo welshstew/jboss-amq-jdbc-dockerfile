@@ -30,13 +30,10 @@ In addition to the existing Jboss A-MQ Paas Image vars, you'll need the followin
 
 ## needs a postgres - docker run command
 
-	docker run -d --restart=always \
-	  -v /var/appdata/postgres-db:/var/lib/postgresql \
-	  -v /var/appdata/postgres-db/recon-db/data:/var/lib/postgresql/data \
-	  -e POSTGRES_PASSWORD=postgresql \
-	  -p 5432:5432 \
-	  --name postgres-db \
-	  postgres:9.5
+	docker run -Pitd <imageID> --link postgres-db:postgres
+
+
+	docker run -Pitd 
 
 ## Build it
 

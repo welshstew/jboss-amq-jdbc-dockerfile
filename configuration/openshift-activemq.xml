@@ -177,7 +177,7 @@
     -->
 
     <bean id="postgres-ds" class="org.postgresql.ds.PGPoolingDataSource">
-        <property name="serverName" value="192.168.99.100" />
+        <property name="serverName" value="postgres" />
         <property name="databaseName" value="postgres" />
         <property name="portNumber" value="5432" />
         <property name="user" value="postgres" />
