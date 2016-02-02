@@ -114,7 +114,7 @@
         <persistenceAdapter>
              <jdbcPersistenceAdapter dataSource="#postgres-ds"
                 lockKeepAlivePeriod="5000"
-                createTablesOnStartup="false">
+                createTablesOnStartup="true">
                 <locker>
                     <lease-database-locker
                         lockAcquireSleepInterval="10000"
@@ -177,7 +177,7 @@
     -->
 
     <bean id="postgres-ds" class="org.postgresql.ds.PGPoolingDataSource">
-        <property name="serverName" value="postgres" />
+        <property name="serverName" value="192.168.99.100" />
         <property name="databaseName" value="postgres" />
         <property name="portNumber" value="5432" />
         <property name="user" value="postgres" />
