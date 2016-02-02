@@ -180,7 +180,7 @@
         <property name="serverName" value="192.168.99.100" />
         <property name="databaseName" value="public" />
         <property name="portNumber" value="5432" />
-        <property name="user" value="root" />
+        <property name="user" value="postgres" />
         <property name="password" value="postgresql" />
         <property name="dataSourceName" value="postgres" />
         <property name="initialConnections" value="1" />
