@@ -1,5 +1,4 @@
 #!/bin/sh
-AMQ_HOME=/Users/swinchester/amq-test
 OPENSHIFT_CONFIG_FILE=$AMQ_HOME/conf/openshift-activemq.xml
 CONFIG_FILE=$AMQ_HOME/conf/activemq.xml
 POSTGRES_PA_SNIPPET=$AMQ_HOME/conf/postgres-jdbc-persistence-adapter.xml
