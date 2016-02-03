@@ -1,0 +1,7 @@
+<persistenceAdapter>
+	<jdbcPersistenceAdapter createTablesOnStartup="#amqCreateTablesOnStart" dataSource="#postgres-ds" lockKeepAlivePeriod="#amqLockKeepAlivePeriod">
+		<locker>
+			<lease-database-locker lockAcquireSleepInterval="#amqLockAquireSleepInterval" maxAllowableDiffFromDBTime="#amqMaxAllowableDiffFromDbTime"/>
+		</locker>
+	</jdbcPersistenceAdapter>
+</persistenceAdapter>

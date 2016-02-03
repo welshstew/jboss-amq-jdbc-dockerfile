@@ -4,6 +4,8 @@ Based from the [Jboss A-MQ Paas Image](https://docs.openshift.com/enterprise/3.1
 
 Using [Source2Image stuff](https://github.com/openshift/source-to-image)
 
+[Other docs](https://docs.openshift.com/enterprise/3.0/creating_images/s2i.html)
+
 ## What it should do...
 
 1.  Override the openshift-activemq.xml with one that supports JDBC postgresql
@@ -40,3 +42,19 @@ In addition to the existing Jboss A-MQ Paas Image vars, you'll need the followin
 	s2i build git://github.com/pmorie/simple-ruby openshift/ruby-20-centos7 test-ruby-app
 
 	s2i build git@github.com:welshstew/jboss-amq-jdbc-dockerfile.git registry.access.redhat.com/jboss-amq-6/amq62-openshift test-amq-app
+
+
+
+## TODO:
+
+1.  replace:
+
+	<persistenceAdapter>
+        <kahaDB directory="${activemq.data}/kahadb" />
+    </persistenceAdapter>	
+
+    with:
+
+	content from postgres-jdbc-persistence-adapter.xml
+
+2.  Append between </broker> and </beans> the jdbc bean	

@@ -111,18 +111,8 @@
 
             http://activemq.apache.org/persistence.html
         -->
-        <persistenceAdapter>
-             <jdbcPersistenceAdapter dataSource="#postgres-ds"
-                lockKeepAlivePeriod="5000"
-                createTablesOnStartup="true">
-                <locker>
-                    <lease-database-locker
-                        lockAcquireSleepInterval="10000"
-                        maxAllowableDiffFromDBTime="1000" />
-                </locker>
-            </jdbcPersistenceAdapter>
-
-        </persistenceAdapter>
+        
+        <!-- ##### PERSISTENCE_ADAPTER ##### -->
 
         <plugins>
             <!-- ##### AUTHENTICATION ##### -->
@@ -176,15 +166,6 @@
     <import resource="jetty.xml" />
     -->
 
-    <bean id="postgres-ds" class="org.postgresql.ds.PGPoolingDataSource">
-        <property name="serverName" value="192.168.99.100" />
-        <property name="databaseName" value="postgres" />
-        <property name="portNumber" value="5432" />
-        <property name="user" value="postgres" />
-        <property name="password" value="postgresql" />
-        <property name="dataSourceName" value="postgres" />
-        <property name="initialConnections" value="1" />
-        <property name="maxConnections" value="10" />
-    </bean>
+    <!-- ##### DATASOURCE_BEAN ##### -->
 
 </beans>
