@@ -2,6 +2,7 @@
 
 SRCCONF=/tmp/src/configuration
 SRCLIB=/tmp/src/lib
+SRCBIN=/tmp/src
 
 if [ -d ${SRCCONF} ]; then
   echo "Copying config files from project..."
@@ -13,5 +14,10 @@ if [ -d ${SRCLIB} ]; then
   cp -v ${SRCLIB}/* $AMQ_HOME/lib/
 fi
 
+if [ -d ${SRCBIN} ]; then
+  echo "Copying shells from project..."
+  chmod +x ${SRCBIN}/*.sh
+  cp -v ${SRCBIN}/*.sh $AMQ_HOME/bin/
+fi
 
 exit 0

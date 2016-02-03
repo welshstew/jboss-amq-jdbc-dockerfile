@@ -43,6 +43,8 @@ In addition to the existing Jboss A-MQ Paas Image vars, you'll need the followin
 
 	s2i build git@github.com:welshstew/jboss-amq-jdbc-dockerfile.git registry.access.redhat.com/jboss-amq-6/amq62-openshift test-amq-app
 
+	sti build . registry.access.redhat.com/jboss-amq-6/amq62-openshift test-amq-app
+
 
 
 ## TODO:
