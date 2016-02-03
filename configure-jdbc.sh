@@ -1,14 +1,25 @@
 #!/bin/sh
-
+AMQ_HOME=/Users/swinchester/amq-test
 OPENSHIFT_CONFIG_FILE=$AMQ_HOME/conf/openshift-activemq.xml
 CONFIG_FILE=$AMQ_HOME/conf/activemq.xml
-OPENSHIFT_LOGIN_FILE=$AMQ_HOME/conf/openshift-login.config
-LOGIN_FILE=$AMQ_HOME/conf/login.config
-OPENSHIFT_USERS_FILE=$AMQ_HOME/conf/openshift-users.properties
-USERS_FILE=$AMQ_HOME/conf/users.properties
-
 POSTGRES_PA_SNIPPET=$AMQ_HOME/conf/postgres-jdbc-persistence-adapter.xml
 POSTGRES_DB_SNIPPET=$AMQ_HOME/conf/postgres-db-snippet.xml
+
+export AMQ_LOCK_KEEP_ALIVE_PERIOD="12321"
+export AMQ_DB_CREATE_TABLE_ON_STARTUP="12321"
+export AMQ_LOCK_ACQUIRE_SLEEP_INTERVAL="12321"
+export AMQ_MAX_ALLOWABLE_DIFF_FROM_DB_TIME="12321"
+
+export AMQ_DB_HOST="12321"
+export AMQ_DB_NAME="12321"
+export AMQ_DB_PORT="12321"
+
+export AMQ_DB_USER="12321"
+export AMQ_DB_PASS="12321"
+
+export AMQ_DB_INIT_CONNECTION="12321"
+export AMQ_DB_MAX_CONNECTION="12321"
+
 
 # Finds the environment variable  and returns its value if found.
 # Otherwise returns the default value if provided.
@@ -71,11 +82,3 @@ function configureJdbcPersistence() {
 
 
 configureJdbcPersistence
-
-# curl to get libs
-
-
-#    <!-- ##### DATASOURCE_BEAN ##### -->
-
-
-# <!-- ##### PERSISTENCE_ADAPTER ##### -->
