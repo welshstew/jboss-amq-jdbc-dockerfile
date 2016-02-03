@@ -39,30 +39,42 @@ function configureJdbcPersistence() {
 	amqDbInitialConnections="${AMQ_DB_INIT_CONNECTION}"
 	amqDbMaxConnections="${AMQ_DB_MAX_CONNECTION}"
 
+	sed -i "s|#amqLockKeepAlivePeriod|${amqLockKeepAlivePeriod}|" "$CONFIG_FILE"
+    sed -i "s|#amqCreateTablesOnStart|${amqCreateTablesOnStart}|" "$CONFIG_FILE"
+    sed -i "s|#amqLockAquireSleepInterval|${amqLockAquireSleepInterval}|" "$CONFIG_FILE"
+    sed -i "s|#amqMaxAllowableDiffFromDbTime|${amqMaxAllowableDiffFromDbTime}|" "$CONFIG_FILE"
 
 	# PA BEAN (persistenceAdapter)
-	sed -i "s|#amqLockKeepAlivePeriod|${amqLockKeepAlivePeriod}|" "${POSTGRES_PA_SNIPPET}"
-    sed -i "s|#amqCreateTablesOnStart|${amqCreateTablesOnStart}|" "${POSTGRES_PA_SNIPPET}"
-    sed -i "s|#amqLockAquireSleepInterval|${amqLockAquireSleepInterval}|" "${POSTGRES_PA_SNIPPET}"
-    sed -i "s|#amqMaxAllowableDiffFromDbTime|${amqMaxAllowableDiffFromDbTime}|" "${POSTGRES_PA_SNIPPET}"
+	# sed -i "s|#amqLockKeepAlivePeriod|${amqLockKeepAlivePeriod}|" "${POSTGRES_PA_SNIPPET}"
+ #    sed -i "s|#amqCreateTablesOnStart|${amqCreateTablesOnStart}|" "${POSTGRES_PA_SNIPPET}"
+ #    sed -i "s|#amqLockAquireSleepInterval|${amqLockAquireSleepInterval}|" "${POSTGRES_PA_SNIPPET}"
+ #    sed -i "s|#amqMaxAllowableDiffFromDbTime|${amqMaxAllowableDiffFromDbTime}|" "${POSTGRES_PA_SNIPPET}"
 
-	echo "replacing PERSISTENCE_ADAPTER"
-	pasnippet=$(cat $POSTGRES_PA_SNIPPET)
-	sed -i "s|##### PERSISTENCE_ADAPTER #####|${pasnippet}|" "${CONFIG_FILE}"
+	# echo "replacing PERSISTENCE_ADAPTER"
+	# pasnippet=$(cat $POSTGRES_PA_SNIPPET)
+	# sed -i "s|##### PERSISTENCE_ADAPTER #####|${pasnippet}|" "${CONFIG_FILE}"
   
 	# DB BEAN
-    sed -i "s|#amqDbHost|${amqDbHost}|" "${POSTGRES_DB_SNIPPET}"
-    sed -i "s|#amqDbName|${amqDbName}|" "${POSTGRES_DB_SNIPPET}"
-    sed -i "s|#amqDbPort|${amqDbPort}|" "${POSTGRES_DB_SNIPPET}"
-    sed -i "s|#amqDbUser|${amqDbUser}|" "${POSTGRES_DB_SNIPPET}"
-    sed -i "s|#amqDbPassword|${amqDbPassword}|" "${POSTGRES_DB_SNIPPET}"
-    sed -i "s|#amqDbInitialConnections|${amqDbInitialConnections}|" "${POSTGRES_DB_SNIPPET}"
-    sed -i "s|#amqDbMaxConnections|${amqDbMaxConnections}|" "${POSTGRES_DB_SNIPPET}"
+    # sed -i "s|#amqDbHost|${amqDbHost}|" "${POSTGRES_DB_SNIPPET}"
+    # sed -i "s|#amqDbName|${amqDbName}|" "${POSTGRES_DB_SNIPPET}"
+    # sed -i "s|#amqDbPort|${amqDbPort}|" "${POSTGRES_DB_SNIPPET}"
+    # sed -i "s|#amqDbUser|${amqDbUser}|" "${POSTGRES_DB_SNIPPET}"
+    # sed -i "s|#amqDbPassword|${amqDbPassword}|" "${POSTGRES_DB_SNIPPET}"
+    # sed -i "s|#amqDbInitialConnections|${amqDbInitialConnections}|" "${POSTGRES_DB_SNIPPET}"
+    # sed -i "s|#amqDbMaxConnections|${amqDbMaxConnections}|" "${POSTGRES_DB_SNIPPET}"
 
-	echo "replacing DATASOURCE_BEAN"
-	dbsnippet="$(cat $POSTGRES_DB_SNIPPET)"
+    sed -i "s|#amqDbHost|${amqDbHost}|" "$CONFIG_FILE"
+    sed -i "s|#amqDbName|${amqDbName}|" "$CONFIG_FILE"
+    sed -i "s|#amqDbPort|${amqDbPort}|" "$CONFIG_FILE"
+    sed -i "s|#amqDbUser|${amqDbUser}|" "$CONFIG_FILE"
+    sed -i "s|#amqDbPassword|${amqDbPassword}|" "$CONFIG_FILE"
+    sed -i "s|#amqDbInitialConnections|${amqDbInitialConnections}|" "$CONFIG_FILE"
+    sed -i "s|#amqDbMaxConnections|${amqDbMaxConnections}|" "$CONFIG_FILE"
+
+	# echo "replacing DATASOURCE_BEAN"
+	# dbsnippet="$(cat $POSTGRES_DB_SNIPPET)"
 	
-	sed -i "s|##### DATASOURCE_BEAN #####|${dbsnippet}|" "${CONFIG_FILE}"
+	# sed -i "s|##### DATASOURCE_BEAN #####|${dbsnippet}|" "${CONFIG_FILE}"
   
 }
 

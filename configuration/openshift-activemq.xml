@@ -112,7 +112,13 @@
             http://activemq.apache.org/persistence.html
         -->
         
-        ##### PERSISTENCE_ADAPTER #####
+       <persistenceAdapter>
+        <jdbcPersistenceAdapter createTablesOnStartup="#amqCreateTablesOnStart" dataSource="#postgres-ds" lockKeepAlivePeriod="#amqLockKeepAlivePeriod">
+            <locker>
+                <lease-database-locker lockAcquireSleepInterval="#amqLockAquireSleepInterval" maxAllowableDiffFromDBTime="#amqMaxAllowableDiffFromDbTime"/>
+            </locker>
+        </jdbcPersistenceAdapter>
+    </persistenceAdapter>
 
         <plugins>
             <!-- ##### AUTHENTICATION ##### -->
@@ -166,6 +172,15 @@
     <import resource="jetty.xml" />
     -->
 
-    ##### DATASOURCE_BEAN #####
+    <bean id="postgres-ds" class="org.postgresql.ds.PGPoolingDataSource">
+    <property name="serverName" value="#amqDbHost" />
+    <property name="databaseName" value="#amqDbName" />
+    <property name="portNumber" value="#amqDbPort" />
+    <property name="user" value="#amqDbUser" />
+    <property name="password" value="#amqDbPassword" />
+    <property name="dataSourceName" value="postgres" />
+    <property name="initialConnections" value="#amqDbInitialConnections" />
+    <property name="maxConnections" value="#amqDbMaxConnections" />
+</bean>
 
 </beans>
