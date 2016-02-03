@@ -47,8 +47,7 @@ function configureJdbcPersistence() {
     sed -i "s|#amqMaxAllowableDiffFromDbTime|${amqMaxAllowableDiffFromDbTime}|" "${POSTGRES_PA_SNIPPET}"
 
 	echo "replacing PERSISTENCE_ADAPTER"
-    pasnippet=$(cat ${POSTGRES_PA_SNIPPET})
-	sed -i "s|<!-- ##### PERSISTENCE_ADAPTER ##### -->|${pasnippet}|" "$CONFIG_FILE"
+	sed -i "s|<!-- ##### PERSISTENCE_ADAPTER ##### -->|$cat ${POSTGRES_PA_SNIPPET}|" "$CONFIG_FILE"
   
 	# DB BEAN
     sed -i "s|#amqDbHost|${amqDbHost}|" "${POSTGRES_DB_SNIPPET}"
@@ -60,9 +59,8 @@ function configureJdbcPersistence() {
     sed -i "s|#amqDbMaxConnections|${amqDbMaxConnections}|" "${POSTGRES_DB_SNIPPET}"
 
 	echo "replacing DATASOURCE_BEAN"
-    dbsnippet=$(cat ${POSTGRES_DB_SNIPPET})
 	
-	sed -i "s|<!-- ##### DATASOURCE_BEAN ##### -->|${dbsnippet}|" "$CONFIG_FILE"
+	sed -i "s|<!-- ##### DATASOURCE_BEAN ##### -->|$cat ${POSTGRES_DB_SNIPPET}|" "$CONFIG_FILE"
   
 }
 
