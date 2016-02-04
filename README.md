@@ -43,20 +43,18 @@ In addition to the existing Jboss A-MQ Paas Image vars, you'll need the followin
 
 	s2i build git@github.com:welshstew/jboss-amq-jdbc-dockerfile.git registry.access.redhat.com/jboss-amq-6/amq62-openshift test-amq-app
 
-	docker run -Pitd  \
- -e AMQ_LOCK_KEEP_ALIVE_PERIOD="5000" \
- -e AMQ_DB_CREATE_TABLE_ON_STARTUP="false" \
- -e AMQ_LOCK_ACQUIRE_SLEEP_INTERVAL="10000" \
- -e AMQ_MAX_ALLOWABLE_DIFF_FROM_DB_TIME="1000" \
- -e AMQ_DB_HOST="192.168.99.100" \
- -e AMQ_DB_NAME=postgres \
- -e AMQ_DB_PORT=5432 \
- -e AMQ_DB_USER=postgres \
- -e AMQ_DB_PASS=postgresql \
- -e AMQ_DB_INIT_CONNECTION=1 \
- -e AMQ_DB_MAX_CONNECTION=10 
- --name test-amq \
- IMAGEID
+	docker run -d \
+	-e AMQ_LOCK_KEEP_ALIVE_PERIOD="5000" \
+	-e AMQ_DB_CREATE_TABLE_ON_STARTUP="false" \
+	-e AMQ_LOCK_ACQUIRE_SLEEP_INTERVAL="10000" \
+	-e AMQ_MAX_ALLOWABLE_DIFF_FROM_DB_TIME="1000" \
+	-e AMQ_DB_HOST="192.168.99.100" \
+	-e AMQ_DB_NAME="postgres" \
+	-e AMQ_DB_PORT="5432" \
+	-e AMQ_DB_USER="postgres" \
+	-e AMQ_DB_PASS="postgresql" \
+	-e AMQ_DB_INIT_CONNECTION="1" \
+	-e AMQ_DB_MAX_CONNECTION="10" --name test-amq test-amq-app
 
 
 
