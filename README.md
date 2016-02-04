@@ -56,7 +56,24 @@ In addition to the existing Jboss A-MQ Paas Image vars, you'll need the followin
 	-e AMQ_DB_INIT_CONNECTION="1" \
 	-e AMQ_DB_MAX_CONNECTION="10" --name test-amq test-amq-app
 
+	oc new-app registry.access.redhat.com/jboss-amq-6/amq62-openshift:1.2~https://github.com/welshstew/jboss-amq-jdbc-dockerfile.git  \
+	-e AMQ_LOCK_KEEP_ALIVE_PERIOD=5000 \
+	-e AMQ_DB_CREATE_TABLE_ON_STARTUP=false \
+	-e AMQ_LOCK_ACQUIRE_SLEEP_INTERVAL=10000 \
+	-e AMQ_MAX_ALLOWABLE_DIFF_FROM_DB_TIME=1000 \
+	-e AMQ_DB_HOST=192.168.99.100 \
+	-e AMQ_DB_NAME=postgres \
+	-e AMQ_DB_PORT=5432 \
+	-e AMQ_DB_USER=postgres \
+	-e AMQ_DB_PASS=postgresql \
+	-e AMQ_DB_INIT_CONNECTION=1 \
+	-e AMQ_DB_MAX_CONNECTION=10 \
+	--name=amqz
 
+	# this command will create the app in openshift and generate a buildConfig (bc) and a deploymentConfig (dc)
+	oc new-app registry.access.redhat.com/jboss-amq-6/amq62-openshift:1.2~https://github.com/welshstew/jboss-amq-jdbc-dockerfile.git --name=petstorez
+
+	oc policy add-role-to-user admin admin -n amq-test-1
 
 ## TODO:
 

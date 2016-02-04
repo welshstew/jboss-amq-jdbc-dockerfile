@@ -1,0 +1,116 @@
+{
+    "kind": "DeploymentConfig",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "petstorez",
+        "namespace": "amq-test-1",
+        "selfLink": "/oapi/v1/namespaces/amq-test-1/deploymentconfigs/petstorez",
+        "uid": "24474373-cb47-11e5-bec4-52540013d96e",
+        "resourceVersion": "3356",
+        "creationTimestamp": "2016-02-04T13:56:51Z",
+        "labels": {
+            "app": "petstorez"
+        },
+        "annotations": {
+            "openshift.io/generated-by": "OpenShiftNewApp"
+        }
+    },
+    "spec": {
+        "strategy": {
+            "type": "Rolling",
+            "rollingParams": {
+                "updatePeriodSeconds": 1,
+                "intervalSeconds": 1,
+                "timeoutSeconds": 600,
+                "maxUnavailable": "25%",
+                "maxSurge": "25%"
+            },
+            "resources": {}
+        },
+        "triggers": [
+            {
+                "type": "ConfigChange"
+            },
+            {
+                "type": "ImageChange",
+                "imageChangeParams": {
+                    "automatic": true,
+                    "containerNames": [
+                        "petstorez"
+                    ],
+                    "from": {
+                        "kind": "ImageStreamTag",
+                        "name": "petstorez:latest"
+                    },
+                    "lastTriggeredImage": "172.30.222.93:5000/amq-test-1/petstorez@sha256:8163df003258a2b44fd31842577f77587b5ebeb350193d12e2b6b8ccba94bfe7"
+                }
+            }
+        ],
+        "replicas": 1,
+        "selector": {
+            "app": "petstorez",
+            "deploymentconfig": "petstorez"
+        },
+        "template": {
+            "metadata": {
+                "creationTimestamp": null,
+                "labels": {
+                    "app": "petstorez",
+                    "deploymentconfig": "petstorez"
+                },
+                "annotations": {
+                    "openshift.io/generated-by": "OpenShiftNewApp"
+                }
+            },
+            "spec": {
+                "volumes": [
+                    {
+                        "name": "petstorez-volume-1",
+                        "emptyDir": {}
+                    }
+                ],
+                "containers": [
+                    {
+                        "name": "petstorez",
+                        "image": "172.30.222.93:5000/amq-test-1/petstorez@sha256:8163df003258a2b44fd31842577f77587b5ebeb350193d12e2b6b8ccba94bfe7",
+                        "ports": [
+                            {
+                                "containerPort": 8778,
+                                "protocol": "TCP"
+                            }
+                        ],
+                        "resources": {},
+                        "volumeMounts": [
+                            {
+                                "name": "petstorez-volume-1",
+                                "mountPath": "/run"
+                            }
+                        ],
+                        "terminationMessagePath": "/dev/termination-log",
+                        "imagePullPolicy": "Always"
+                    }
+                ],
+                "restartPolicy": "Always",
+                "terminationGracePeriodSeconds": 30,
+                "dnsPolicy": "ClusterFirst",
+                "securityContext": {}
+            }
+        }
+    },
+    "status": {
+        "latestVersion": 1,
+        "details": {
+            "causes": [
+                {
+                    "type": "ImageChange",
+                    "imageTrigger": {
+                        "from": {
+                            "kind": "DockerImage",
+                            "name": "172.30.222.93:5000/amq-test-1/petstorez:latest"
+                        }
+                    }
+                }
+            ]
+        }
+    }
+}

@@ -1,8 +1,6 @@
 #!/bin/sh
-echo "Running configure"
+
 . $AMQ_HOME/bin/configure.sh
-echo "Running configure-jdbc"
-. $AMQ_HOME/bin/configure-jdbc.sh
 . /usr/local/dynamic-resources/dynamic_resources.sh
 
 MAX_HEAP=`get_heap_size`
