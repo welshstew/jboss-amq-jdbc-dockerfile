@@ -174,56 +174,31 @@ function configureTransportOptions() {
 
 function configureJdbcPersistence() {
 
-  amqLockKeepAlivePeriod="${AMQ_LOCK_KEEP_ALIVE_PERIOD}"
-  amqCreateTablesOnStart="${AMQ_DB_CREATE_TABLE_ON_STARTUP}"
-  amqLockAquireSleepInterval="${AMQ_LOCK_ACQUIRE_SLEEP_INTERVAL}"
-  amqMaxAllowableDiffFromDbTime="${AMQ_MAX_ALLOWABLE_DIFF_FROM_DB_TIME}"
-  
-  amqDbHost="${AMQ_DB_HOST}"
-  amqDbName="${AMQ_DB_NAME}"
-  amqDbPort="${AMQ_DB_PORT}"
-  amqDbUser="${AMQ_DB_USER}"
-  amqDbPassword="${AMQ_DB_PASS}"
+  amqLockKeepAlivePeriod=$(find_env "AMQ_LOCK_KEEP_ALIVE_PERIOD" "5000")
+  amqCreateTablesOnStart=$(find_env "AMQ_DB_CREATE_TABLE_ON_STARTUP" "true")
+  amqLockAquireSleepInterval=$(find_env "AMQ_LOCK_ACQUIRE_SLEEP_INTERVAL" "10000")
+  amqMaxAllowableDiffFromDbTime=$(find_env "AMQ_MAX_ALLOWABLE_DIFF_FROM_DB_TIME" "1000")
 
-  amqDbInitialConnections="${AMQ_DB_INIT_CONNECTION}"
-  amqDbMaxConnections="${AMQ_DB_MAX_CONNECTION}"
+  amqDbHost=$(find_env "AMQ_DB_HOST" "192.168.99.100")
+  amqDbName=$(find_env "AMQ_DB_NAME" "postgres")
+  amqDbPort=$(find_env "AMQ_DB_PORT" "5432")
+  amqDbUser=$(find_env "AMQ_DB_USER" "postgres")
+  amqDbPassword=$(find_env "AMQ_DB_PASS" "postgresql")
+
+  amqDbInitialConnections=$(find_env "AMQ_DB_INIT_CONNECTION" "1")
+  amqDbMaxConnections=$(find_env "AMQ_DB_MAX_CONNECTION" "10")
 
   sed -i "s|#amqLockKeepAlivePeriod|${amqLockKeepAlivePeriod}|" "$CONFIG_FILE"
-    sed -i "s|#amqCreateTablesOnStart|${amqCreateTablesOnStart}|" "$CONFIG_FILE"
-    sed -i "s|#amqLockAquireSleepInterval|${amqLockAquireSleepInterval}|" "$CONFIG_FILE"
-    sed -i "s|#amqMaxAllowableDiffFromDbTime|${amqMaxAllowableDiffFromDbTime}|" "$CONFIG_FILE"
-
-  # PA BEAN (persistenceAdapter)
-  # sed -i "s|#amqLockKeepAlivePeriod|${amqLockKeepAlivePeriod}|" "${POSTGRES_PA_SNIPPET}"
- #    sed -i "s|#amqCreateTablesOnStart|${amqCreateTablesOnStart}|" "${POSTGRES_PA_SNIPPET}"
- #    sed -i "s|#amqLockAquireSleepInterval|${amqLockAquireSleepInterval}|" "${POSTGRES_PA_SNIPPET}"
- #    sed -i "s|#amqMaxAllowableDiffFromDbTime|${amqMaxAllowableDiffFromDbTime}|" "${POSTGRES_PA_SNIPPET}"
-
-  # echo "replacing PERSISTENCE_ADAPTER"
-  # pasnippet=$(cat $POSTGRES_PA_SNIPPET)
-  # sed -i "s|##### PERSISTENCE_ADAPTER #####|${pasnippet}|" "${CONFIG_FILE}"
-  
-  # DB BEAN
-    # sed -i "s|#amqDbHost|${amqDbHost}|" "${POSTGRES_DB_SNIPPET}"
-    # sed -i "s|#amqDbName|${amqDbName}|" "${POSTGRES_DB_SNIPPET}"
-    # sed -i "s|#amqDbPort|${amqDbPort}|" "${POSTGRES_DB_SNIPPET}"
-    # sed -i "s|#amqDbUser|${amqDbUser}|" "${POSTGRES_DB_SNIPPET}"
-    # sed -i "s|#amqDbPassword|${amqDbPassword}|" "${POSTGRES_DB_SNIPPET}"
-    # sed -i "s|#amqDbInitialConnections|${amqDbInitialConnections}|" "${POSTGRES_DB_SNIPPET}"
-    # sed -i "s|#amqDbMaxConnections|${amqDbMaxConnections}|" "${POSTGRES_DB_SNIPPET}"
-
-    sed -i "s|#amqDbHost|${amqDbHost}|" "$CONFIG_FILE"
-    sed -i "s|#amqDbName|${amqDbName}|" "$CONFIG_FILE"
-    sed -i "s|#amqDbPort|${amqDbPort}|" "$CONFIG_FILE"
-    sed -i "s|#amqDbUser|${amqDbUser}|" "$CONFIG_FILE"
-    sed -i "s|#amqDbPassword|${amqDbPassword}|" "$CONFIG_FILE"
-    sed -i "s|#amqDbInitialConnections|${amqDbInitialConnections}|" "$CONFIG_FILE"
-    sed -i "s|#amqDbMaxConnections|${amqDbMaxConnections}|" "$CONFIG_FILE"
-
-  # echo "replacing DATASOURCE_BEAN"
-  # dbsnippet="$(cat $POSTGRES_DB_SNIPPET)"
-  
-  # sed -i "s|##### DATASOURCE_BEAN #####|${dbsnippet}|" "${CONFIG_FILE}"
+  sed -i "s|#amqCreateTablesOnStart|${amqCreateTablesOnStart}|" "$CONFIG_FILE"
+  sed -i "s|#amqLockAquireSleepInterval|${amqLockAquireSleepInterval}|" "$CONFIG_FILE"
+  sed -i "s|#amqMaxAllowableDiffFromDbTime|${amqMaxAllowableDiffFromDbTime}|" "$CONFIG_FILE"
+  sed -i "s|#amqDbHost|${amqDbHost}|" "$CONFIG_FILE"
+  sed -i "s|#amqDbName|${amqDbName}|" "$CONFIG_FILE"
+  sed -i "s|#amqDbPort|${amqDbPort}|" "$CONFIG_FILE"
+  sed -i "s|#amqDbUser|${amqDbUser}|" "$CONFIG_FILE"
+  sed -i "s|#amqDbPassword|${amqDbPassword}|" "$CONFIG_FILE"
+  sed -i "s|#amqDbInitialConnections|${amqDbInitialConnections}|" "$CONFIG_FILE"
+  sed -i "s|#amqDbMaxConnections|${amqDbMaxConnections}|" "$CONFIG_FILE"
   
 }
 
