@@ -212,7 +212,7 @@ function configurePostgresPersistence() {
 
   echo "replacing DATASOURCE_BEAN with content from: ${DATASOURCE_SNIPPET}"
   dsSnippet=$(cat $DATASOURCE_SNIPPET)
-  echo "replacing <!-- ##### PERSISTENCE_ADAPTER ##### --> in ${CONFIG_FILE} with content : ${dsSnippet}"
+  echo "replacing <!-- ##### DATASOURCE_BEAN ##### --> in ${CONFIG_FILE} with content : ${dsSnippet}"
   sed -i "s|<!-- ##### DATASOURCE_BEAN ##### -->|${dsSnippet}|" "$CONFIG_FILE"
 }
 
@@ -249,7 +249,7 @@ function configureOraclePersistence() {
 
   echo "replacing DATASOURCE_BEAN with content from: ${DATASOURCE_SNIPPET}"
   dsSnippet=$(cat $DATASOURCE_SNIPPET)
-  echo "replacing <!-- ##### PERSISTENCE_ADAPTER ##### --> in ${CONFIG_FILE} with content : ${dsSnippet}"
+  echo "replacing <!-- ##### DATASOURCE_BEAN ##### --> in ${CONFIG_FILE} with content : ${dsSnippet}"
   sed -i "s|<!-- ##### DATASOURCE_BEAN ##### -->|${dsSnippet}|" "$CONFIG_FILE"
 }
 
@@ -257,7 +257,9 @@ function configureJdbcPersistence() {
 
     dbType=$(find_env "AMQ_DB_TYPE" "oracle")
 
-    if [ "$dbType" -eq "oracle" ]
+    echo "dbType is ${dbType}"
+
+    if [ "$dbType" == "oracle" ]
     then
         configureOraclePersistence
     else
