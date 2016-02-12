@@ -7,6 +7,9 @@ LOGIN_FILE=$AMQ_HOME/conf/login.config
 OPENSHIFT_USERS_FILE=$AMQ_HOME/conf/openshift-users.properties
 USERS_FILE=$AMQ_HOME/conf/users.properties
 
+PERSISTENCE_ADAPTER_SNIPPET=$AMQ_HOME/conf/postgres-jdbc-persistence-adapter-snippet.xml
+DATASOURCE_SNIPPET=$AMQ_HOME/conf/postgres-datasource-adapter.xml
+
 # Finds the environment variable  and returns its value if found.
 # Otherwise returns the default value if provided.
 #
@@ -188,17 +191,27 @@ function configureJdbcPersistence() {
   amqDbInitialConnections=$(find_env "AMQ_DB_INIT_CONNECTION" "1")
   amqDbMaxConnections=$(find_env "AMQ_DB_MAX_CONNECTION" "10")
 
-  sed -i "s|#amqLockKeepAlivePeriod|${amqLockKeepAlivePeriod}|" "$CONFIG_FILE"
-  sed -i "s|#amqCreateTablesOnStart|${amqCreateTablesOnStart}|" "$CONFIG_FILE"
-  sed -i "s|#amqLockAquireSleepInterval|${amqLockAquireSleepInterval}|" "$CONFIG_FILE"
-  sed -i "s|#amqMaxAllowableDiffFromDbTime|${amqMaxAllowableDiffFromDbTime}|" "$CONFIG_FILE"
-  sed -i "s|#amqDbHost|${amqDbHost}|" "$CONFIG_FILE"
-  sed -i "s|#amqDbName|${amqDbName}|" "$CONFIG_FILE"
-  sed -i "s|#amqDbPort|${amqDbPort}|" "$CONFIG_FILE"
-  sed -i "s|#amqDbUser|${amqDbUser}|" "$CONFIG_FILE"
-  sed -i "s|#amqDbPassword|${amqDbPassword}|" "$CONFIG_FILE"
-  sed -i "s|#amqDbInitialConnections|${amqDbInitialConnections}|" "$CONFIG_FILE"
-  sed -i "s|#amqDbMaxConnections|${amqDbMaxConnections}|" "$CONFIG_FILE"
+  sed -i "s|#amqLockKeepAlivePeriod|${amqLockKeepAlivePeriod}|" "$PERSISTENCE_ADAPTER_SNIPPET"
+  sed -i "s|#amqCreateTablesOnStart|${amqCreateTablesOnStart}|" "$PERSISTENCE_ADAPTER_SNIPPET"
+  sed -i "s|#amqLockAquireSleepInterval|${amqLockAquireSleepInterval}|" "$PERSISTENCE_ADAPTER_SNIPPET"
+  sed -i "s|#amqMaxAllowableDiffFromDbTime|${amqMaxAllowableDiffFromDbTime}|" "$PERSISTENCE_ADAPTER_SNIPPET"
+
+
+  sed -i "s|#amqDbHost|${amqDbHost}|" "$DATASOURCE_SNIPPET"
+  sed -i "s|#amqDbName|${amqDbName}|" "$DATASOURCE_SNIPPET"
+  sed -i "s|#amqDbPort|${amqDbPort}|" "$DATASOURCE_SNIPPET"
+  sed -i "s|#amqDbUser|${amqDbUser}|" "$DATASOURCE_SNIPPET"
+  sed -i "s|#amqDbPassword|${amqDbPassword}|" "$DATASOURCE_SNIPPET"
+  sed -i "s|#amqDbInitialConnections|${amqDbInitialConnections}|" "$DATASOURCE_SNIPPET"
+  sed -i "s|#amqDbMaxConnections|${amqDbMaxConnections}|" "$DATASOURCE_SNIPPET"
+
+  echo "replacing DATASOURCE_BEAN"
+  datasourceSnippet="$(cat $DATASOURCE_SNIPPET)"
+  sed -i "s|<!-- ##### DATASOURCE_BEAN ##### -->|${datasourceSnippet}|" "$CONFIG_FILE"
+
+  echo "replacing PERSISTENCE_ADAPTER"
+  persistenceSnippet="$(cat $PERSISTENCE_ADAPTER_SNIPPET)"
+  sed -i "s|<!-- ##### PERSISTENCE_ADAPTER ##### -->|${persistenceSnippet}|" "$CONFIG_FILE"
   
 }
 
