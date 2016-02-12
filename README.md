@@ -77,14 +77,4 @@ In addition to the existing Jboss A-MQ Paas Image vars, you'll need the followin
 
 ## TODO:
 
-1.  replace:
-
-	<persistenceAdapter>
-        <kahaDB directory="${activemq.data}/kahadb" />
-    </persistenceAdapter>	
-
-    with:
-
-	content from postgres-jdbc-persistence-adapter.xml
-
-2.  Append between </broker> and </beans> the jdbc bean	
+- [Consider JDBC journaled](https://access.redhat.com/documentation/en-US/Red_Hat_JBoss_A-MQ/6.0/html/Configuring_Broker_Persistence/files/FuseMBPersistJDBCJournaled.html)
