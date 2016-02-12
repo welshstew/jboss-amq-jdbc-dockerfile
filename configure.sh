@@ -8,7 +8,7 @@ OPENSHIFT_USERS_FILE=$AMQ_HOME/conf/openshift-users.properties
 USERS_FILE=$AMQ_HOME/conf/users.properties
 
 PERSISTENCE_ADAPTER_SNIPPET=$AMQ_HOME/conf/postgres-jdbc-persistence-adapter-snippet.xml
-DATASOURCE_SNIPPET=$AMQ_HOME/conf/postgres-datasource-adapter.xml
+DATASOURCE_SNIPPET=$AMQ_HOME/conf/postgres-datasource-snippet.xml
 
 # Finds the environment variable  and returns its value if found.
 # Otherwise returns the default value if provided.
