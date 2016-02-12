@@ -112,7 +112,7 @@
             http://activemq.apache.org/persistence.html
         -->
 
-        PERSISTENCE_ADAPTER
+        <!-- ##### PERSISTENCE_ADAPTER ##### -->
 
         <plugins>
             <!-- ##### AUTHENTICATION ##### -->
@@ -166,6 +166,7 @@
     <import resource="jetty.xml" />
     -->
 
-    DATASOURCE_BEAN
+    <!-- ##### DATASOURCE_BEAN ##### -->
+
 
 </beans>

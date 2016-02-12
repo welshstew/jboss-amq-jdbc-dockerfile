@@ -207,11 +207,13 @@ function configureJdbcPersistence() {
 
   echo "replacing PERSISTENCE_ADAPTER with content from: ${PERSISTENCE_ADAPTER_SNIPPET}"
   paSnippet=$(cat $PERSISTENCE_ADAPTER_SNIPPET)
-  sed -i "s|PERSISTENCE_ADAPTER|${paSnippet}|" "$CONFIG_FILE"
+  echo "replacing <!-- ##### PERSISTENCE_ADAPTER ##### --> in ${CONFIG_FILE} with content : ${paSnippet}"
+  sed -i "s|<!-- ##### PERSISTENCE_ADAPTER ##### -->|${paSnippet}|" "$CONFIG_FILE"
 
-  echo "replacing DATASOURCE_BEAN ${DATASOURCE_SNIPPET}"
+  echo "replacing DATASOURCE_BEAN with content from: ${DATASOURCE_SNIPPET}"
   dsSnippet=$(cat $DATASOURCE_SNIPPET)
-  sed -i "s|DATASOURCE_BEAN|${dsSnippet}|" "$CONFIG_FILE"
+  echo "replacing <!-- ##### PERSISTENCE_ADAPTER ##### --> in ${CONFIG_FILE} with content : ${dsSnippet}"
+  sed -i "s|<!-- ##### DATASOURCE_BEAN ##### -->|${dsSnippet}|" "$CONFIG_FILE"
 
 }
 
