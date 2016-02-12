@@ -205,13 +205,15 @@ function configureJdbcPersistence() {
   sed -i "s|#amqDbInitialConnections|${amqDbInitialConnections}|" "$DATASOURCE_SNIPPET"
   sed -i "s|#amqDbMaxConnections|${amqDbMaxConnections}|" "$DATASOURCE_SNIPPET"
 
+  echo "replacing PERSISTENCE_ADAPTER"
+  persistenceSnippet="$(cat $PERSISTENCE_ADAPTER_SNIPPET)"
+  sed -i "s|<!-- ##### PERSISTENCE_ADAPTER ##### -->|${persistenceSnippet}|" "$CONFIG_FILE"
+
   echo "replacing DATASOURCE_BEAN"
   datasourceSnippet="$(cat $DATASOURCE_SNIPPET)"
   sed -i "s|<!-- ##### DATASOURCE_BEAN ##### -->|${datasourceSnippet}|" "$CONFIG_FILE"
 
-  echo "replacing PERSISTENCE_ADAPTER"
-  persistenceSnippet="$(cat $PERSISTENCE_ADAPTER_SNIPPET)"
-  sed -i "s|<!-- ##### PERSISTENCE_ADAPTER ##### -->|${persistenceSnippet}|" "$CONFIG_FILE"
+
   
 }
 
