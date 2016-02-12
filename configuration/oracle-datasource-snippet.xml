@@ -1,9 +1,1 @@
-<bean id="oracle-ds" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
-<property name="url"
-          value="#amqOracleUrl"/>
-<property name="username" value="#amqDbUser"/>
-<property name="password" value="#amqDbPassword"/>
-<property name="maxActive" value="#amqDbMaxConnections"/>
-<property name="poolPreparedStatements" value="true"/>
-</bean>
+<bean id="oracle-ds" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"><property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/><property name="url" value="#amqOracleUrl"/><property name="username" value="#amqDbUser"/><property name="password" value="#amqDbPassword"/><property name="maxActive" value="#amqDbMaxConnections"/><property name="poolPreparedStatements" value="true"/></bean>
