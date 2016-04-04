@@ -253,6 +253,32 @@ function configureOraclePersistence() {
   sed -i "s|<!-- ##### DATASOURCE_BEAN ##### -->|${dsSnippet}|" "$CONFIG_FILE"
 }
 
+function configureHSQLPersistence() {
+
+  PERSISTENCE_ADAPTER_SNIPPET=$AMQ_HOME/conf/hsql-jdbc-persistence-adapter-snippet.xml
+  DATASOURCE_SNIPPET=$AMQ_HOME/conf/hsql-datasource-snippet.xml
+
+  amqLockKeepAlivePeriod=$(find_env "AMQ_LOCK_KEEP_ALIVE_PERIOD" "5000")
+  amqCreateTablesOnStart=$(find_env "AMQ_DB_CREATE_TABLE_ON_STARTUP" "true")
+  amqLockAquireSleepInterval=$(find_env "AMQ_LOCK_ACQUIRE_SLEEP_INTERVAL" "10000")
+  amqMaxAllowableDiffFromDbTime=$(find_env "AMQ_MAX_ALLOWABLE_DIFF_FROM_DB_TIME" "1000")
+
+  sed -i "s|#amqLockKeepAlivePeriod|${amqLockKeepAlivePeriod}|" "$PERSISTENCE_ADAPTER_SNIPPET"
+  sed -i "s|#amqCreateTablesOnStart|${amqCreateTablesOnStart}|" "$PERSISTENCE_ADAPTER_SNIPPET"
+  sed -i "s|#amqLockAquireSleepInterval|${amqLockAquireSleepInterval}|" "$PERSISTENCE_ADAPTER_SNIPPET"
+  sed -i "s|#amqMaxAllowableDiffFromDbTime|${amqMaxAllowableDiffFromDbTime}|" "$PERSISTENCE_ADAPTER_SNIPPET"
+
+  echo "replacing PERSISTENCE_ADAPTER with content from: ${PERSISTENCE_ADAPTER_SNIPPET}"
+  paSnippet=$(cat $PERSISTENCE_ADAPTER_SNIPPET)
+  echo "replacing <!-- ##### PERSISTENCE_ADAPTER ##### --> in ${CONFIG_FILE} with content : ${paSnippet}"
+  sed -i "s|<!-- ##### PERSISTENCE_ADAPTER ##### -->|${paSnippet}|" "$CONFIG_FILE"
+
+  echo "replacing DATASOURCE_BEAN with content from: ${DATASOURCE_SNIPPET}"
+  dsSnippet=$(cat $DATASOURCE_SNIPPET)
+  echo "replacing <!-- ##### DATASOURCE_BEAN ##### --> in ${CONFIG_FILE} with content : ${dsSnippet}"
+  sed -i "s|<!-- ##### DATASOURCE_BEAN ##### -->|${dsSnippet}|" "$CONFIG_FILE"
+}
+
 function configureJdbcPersistence() {
 
     dbType=$(find_env "AMQ_DB_TYPE" "oracle")
@@ -262,8 +288,16 @@ function configureJdbcPersistence() {
     if [ "$dbType" == "oracle" ]
     then
         configureOraclePersistence
-    else
+    fi
+
+    if [ "$dbType" == "postgres" ]
+    then
         configurePostgresPersistence
+    fi
+
+    if [ "$dbType" == "hsql" ]
+    then
+      configureHSQLPersistence
     fi
 }
 
