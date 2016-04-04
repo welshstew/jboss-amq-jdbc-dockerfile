@@ -34,12 +34,11 @@ In addition to the existing Jboss A-MQ Paas Image vars, you'll need the followin
 
 	docker run -Pitd <imageID> --link postgres-db:postgres
 
-
 	docker run -Pitd 
 
 ## Build it
 
-	s2i build git://github.com/pmorie/simple-ruby openshift/ruby-20-centos7 test-ruby-app
+### s2i locally
 
 	s2i build git@github.com:welshstew/jboss-amq-jdbc-dockerfile.git registry.access.redhat.com/jboss-amq-6/amq62-openshift test-amq-app
 
@@ -56,25 +55,24 @@ In addition to the existing Jboss A-MQ Paas Image vars, you'll need the followin
 	-e AMQ_DB_INIT_CONNECTION="1" \
 	-e AMQ_DB_MAX_CONNECTION="10" --name test-amq test-amq-app
 
-	oc new-app registry.access.redhat.com/jboss-amq-6/amq62-openshift:1.2~https://github.com/welshstew/jboss-amq-jdbc-dockerfile.git  \
-	-e AMQ_LOCK_KEEP_ALIVE_PERIOD=5000 \
-	-e AMQ_DB_CREATE_TABLE_ON_STARTUP=false \
-	-e AMQ_LOCK_ACQUIRE_SLEEP_INTERVAL=10000 \
-	-e AMQ_MAX_ALLOWABLE_DIFF_FROM_DB_TIME=1000 \
-	-e AMQ_DB_HOST=192.168.99.100 \
-	-e AMQ_DB_NAME=postgres \
-	-e AMQ_DB_PORT=5432 \
-	-e AMQ_DB_USER=postgres \
-	-e AMQ_DB_PASS=postgresql \
-	-e AMQ_DB_INIT_CONNECTION=1 \
-	-e AMQ_DB_MAX_CONNECTION=10 \
-	--name=test-amq
+### s2i on openshift
 
-	# this command will create the app in openshift and generate a buildConfig (bc) and a deploymentConfig (dc)
-	oc new-app registry.access.redhat.com/jboss-amq-6/amq62-openshift:1.2~https://github.com/welshstew/jboss-amq-jdbc-dockerfile.git --name=petstorez
+	oc new-build registry.access.redhat.com/jboss-amq-6/amq62-openshift:1.2~https://github.com/welshstew/jboss-amq-jdbc-dockerfile.git
 
-	oc policy add-role-to-user admin admin -n amq-test-1
+## Getting it up and running (3 broker mesh)	
 
-## TODO:
+	#create the template in the namespace
+	oc create -n namespace -f amq-ssl-jdbc-presisted-template.json
 
-- [Consider JDBC journaled](https://access.redhat.com/documentation/en-US/Red_Hat_JBoss_A-MQ/6.0/html/Configuring_Broker_Persistence/files/FuseMBPersistJDBCJournaled.html)
+	#create the service account "amq-service-account"
+	oc create -f https://gist.githubusercontent.com/welshstew/08daeeef046aeb3ceb9b8b39c9e0d243/raw/1c9535126b57ab7c8adc4ae0859583c20c25eca9/amq-service-account.json
+
+	#ensure the service account is added to the namespace for view permissions... (for pod scaling)
+	oc policy add-role-to-user view system:serviceaccount:namespace:amq-service-account
+
+	#ensure the secrets are added… (two files can go in one secret) (both broker.ks and broker.ts)
+	oc secrets new amq-app-secret /Users/swinchester/sourcetree/activemq-broker-projects/simple-spring-amq/src/main/resources/just_keystores
+
+
+
+

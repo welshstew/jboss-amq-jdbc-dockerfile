@@ -182,28 +182,18 @@ function configurePostgresPersistence() {
   amqLockAquireSleepInterval=$(find_env "AMQ_LOCK_ACQUIRE_SLEEP_INTERVAL" "10000")
   amqMaxAllowableDiffFromDbTime=$(find_env "AMQ_MAX_ALLOWABLE_DIFF_FROM_DB_TIME" "1000")
 
-  amqDbHost=$(find_env "AMQ_DB_HOST" "192.168.99.100")
-  amqDbName=$(find_env "AMQ_DB_NAME" "postgres")
-  amqDbPort=$(find_env "AMQ_DB_PORT" "5432")
-  amqDbUser=$(find_env "AMQ_DB_USER" "postgres")
-  amqDbPassword=$(find_env "AMQ_DB_PASS" "postgresql")
-
-  amqDbInitialConnections=$(find_env "AMQ_DB_INIT_CONNECTION" "1")
-  amqDbMaxConnections=$(find_env "AMQ_DB_MAX_CONNECTION" "10")
+  jdbcUrl=$(find_env "JDBC_URL" "jdbc:oracle:thin:@oracle_host:1521:ora1")
+  jdbcUser=$(find_env "JDBC_USER" "oracle")
+  jdbcPassword=$(find_env "JDBC_PASSWORD" "sqladmin")
 
   sed -i "s|#amqLockKeepAlivePeriod|${amqLockKeepAlivePeriod}|" "$PERSISTENCE_ADAPTER_SNIPPET"
   sed -i "s|#amqCreateTablesOnStart|${amqCreateTablesOnStart}|" "$PERSISTENCE_ADAPTER_SNIPPET"
   sed -i "s|#amqLockAquireSleepInterval|${amqLockAquireSleepInterval}|" "$PERSISTENCE_ADAPTER_SNIPPET"
   sed -i "s|#amqMaxAllowableDiffFromDbTime|${amqMaxAllowableDiffFromDbTime}|" "$PERSISTENCE_ADAPTER_SNIPPET"
 
-
-  sed -i "s|#amqDbHost|${amqDbHost}|" "$DATASOURCE_SNIPPET"
-  sed -i "s|#amqDbName|${amqDbName}|" "$DATASOURCE_SNIPPET"
-  sed -i "s|#amqDbPort|${amqDbPort}|" "$DATASOURCE_SNIPPET"
-  sed -i "s|#amqDbUser|${amqDbUser}|" "$DATASOURCE_SNIPPET"
-  sed -i "s|#amqDbPassword|${amqDbPassword}|" "$DATASOURCE_SNIPPET"
-  sed -i "s|#amqDbInitialConnections|${amqDbInitialConnections}|" "$DATASOURCE_SNIPPET"
-  sed -i "s|#amqDbMaxConnections|${amqDbMaxConnections}|" "$DATASOURCE_SNIPPET"
+  sed -i "s|#jdbcUrl|${jdbcUrl}|" "$DATASOURCE_SNIPPET"
+  sed -i "s|#jdbcUser|${jdbcUser}|" "$DATASOURCE_SNIPPET"
+  sed -i "s|#jdbcPassword|${jdbcPassword}|" "$DATASOURCE_SNIPPET"
 
   echo "replacing PERSISTENCE_ADAPTER with content from: ${PERSISTENCE_ADAPTER_SNIPPET}"
   paSnippet=$(cat $PERSISTENCE_ADAPTER_SNIPPET)
@@ -226,10 +216,9 @@ function configureOraclePersistence() {
   amqLockAquireSleepInterval=$(find_env "AMQ_LOCK_ACQUIRE_SLEEP_INTERVAL" "10000")
   amqMaxAllowableDiffFromDbTime=$(find_env "AMQ_MAX_ALLOWABLE_DIFF_FROM_DB_TIME" "1000")
 
-  amqOracleUrl=$(find_env "AMQ_DB_ORACLE_URL" "jdbc:oracle:thin:@oracle_host:1521:ora1")
-  amqDbUser=$(find_env "AMQ_DB_USER" "oracle")
-  amqDbPassword=$(find_env "AMQ_DB_PASS" "sqladmin")
-  amqDbMaxConnections=$(find_env "AMQ_DB_MAX_CONNECTION" "10")
+  jdbcUrl=$(find_env "JDBC_URL" "jdbc:oracle:thin:@oracle_host:1521:ora1")
+  jdbcUser=$(find_env "JDBC_USER" "oracle")
+  jdbcPassword=$(find_env "JDBC_PASSWORD" "sqladmin")
 
   sed -i "s|#amqLockKeepAlivePeriod|${amqLockKeepAlivePeriod}|" "$PERSISTENCE_ADAPTER_SNIPPET"
   sed -i "s|#amqCreateTablesOnStart|${amqCreateTablesOnStart}|" "$PERSISTENCE_ADAPTER_SNIPPET"
@@ -237,10 +226,9 @@ function configureOraclePersistence() {
   sed -i "s|#amqMaxAllowableDiffFromDbTime|${amqMaxAllowableDiffFromDbTime}|" "$PERSISTENCE_ADAPTER_SNIPPET"
 
 
-  sed -i "s|#amqOracleUrl|${amqOracleUrl}|" "$DATASOURCE_SNIPPET"
-  sed -i "s|#amqDbUser|${amqDbUser}|" "$DATASOURCE_SNIPPET"
-  sed -i "s|#amqDbPassword|${amqDbPassword}|" "$DATASOURCE_SNIPPET"
-  sed -i "s|#amqDbMaxConnections|${amqDbMaxConnections}|" "$DATASOURCE_SNIPPET"
+  sed -i "s|#jdbcUrl|${jdbcUrl}|" "$DATASOURCE_SNIPPET"
+  sed -i "s|#jdbcUser|${jdbcUser}|" "$DATASOURCE_SNIPPET"
+  sed -i "s|#jdbcPassword|${jdbcPassword}|" "$DATASOURCE_SNIPPET"
 
   echo "replacing PERSISTENCE_ADAPTER with content from: ${PERSISTENCE_ADAPTER_SNIPPET}"
   paSnippet=$(cat $PERSISTENCE_ADAPTER_SNIPPET)
