@@ -127,6 +127,21 @@
             "name": "AMQ_DB_TYPE",
             "value": "hsql",
             "required": true
+        },
+        {
+            "description": "JDBC url - passed to dbcp2 (required for non-hsql)",
+            "name": "JDBC_URL",
+            "required": false
+        },
+        {
+            "description": "JDBC username - passed to dbcp2 (required for non-hsql)",
+            "name": "JDBC_USER",
+            "required": false
+        },
+        {
+            "description": "JDBC password - passed to dbcp2 (required for non-hsql)",
+            "name": "JDBC_PASSWORD",
+            "required": false
         }
     ],
     "objects": [
@@ -337,6 +352,18 @@
                                     {
                                         "name": "AMQ_DB_TYPE",
                                         "value": "${AMQ_DB_TYPE}"
+                                    },
+                                    {
+                                        "name": "JDBC_URL",
+                                        "value": "${JDBC_URL}"
+                                    },
+                                    {
+                                        "name": "JDBC_USER",
+                                        "value": "${JDBC_USER}"
+                                    },
+                                    {
+                                        "name": "JDBC_PASSWORD",
+                                        "value": "${JDBC_PASSWORD}"
                                     }
                                 ]
                             }                            
@@ -492,6 +519,18 @@
                                     {
                                         "name": "AMQ_DB_TYPE",
                                         "value": "${AMQ_DB_TYPE}"
+                                    },
+                                    {
+                                        "name": "JDBC_URL",
+                                        "value": "${JDBC_URL}"
+                                    },
+                                    {
+                                        "name": "JDBC_USER",
+                                        "value": "${JDBC_USER}"
+                                    },
+                                    {
+                                        "name": "JDBC_PASSWORD",
+                                        "value": "${JDBC_PASSWORD}"
                                     }
                                 ]
                             }                            
@@ -647,6 +686,18 @@
                                     {
                                         "name": "AMQ_DB_TYPE",
                                         "value": "${AMQ_DB_TYPE}"
+                                    },
+                                    {
+                                        "name": "JDBC_URL",
+                                        "value": "${JDBC_URL}"
+                                    },
+                                    {
+                                        "name": "JDBC_USER",
+                                        "value": "${JDBC_USER}"
+                                    },
+                                    {
+                                        "name": "JDBC_PASSWORD",
+                                        "value": "${JDBC_PASSWORD}"
                                     }
                                 ]
                             }                            

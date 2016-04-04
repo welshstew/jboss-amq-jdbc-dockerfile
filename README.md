@@ -73,6 +73,8 @@ In addition to the existing Jboss A-MQ Paas Image vars, you'll need the followin
 	#ensure the secrets are added… (two files can go in one secret) (both broker.ks and broker.ts)
 	oc secrets new amq-app-secret /Users/swinchester/sourcetree/activemq-broker-projects/simple-spring-amq/src/main/resources/just_keystores
 
+	#use the template in the namespace then to create your app (3 broker mesh)
+
 
 
 
