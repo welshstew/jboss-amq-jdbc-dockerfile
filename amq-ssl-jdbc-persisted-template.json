@@ -130,17 +130,47 @@
         },
         {
             "description": "JDBC url - passed to dbcp2 (required for non-hsql)",
-            "name": "JDBC_URL",
+            "name": "JDBC_URL_BROKER_A",
             "required": false
         },
         {
             "description": "JDBC username - passed to dbcp2 (required for non-hsql)",
-            "name": "JDBC_USER",
+            "name": "JDBC_USER_BROKER_A",
             "required": false
         },
         {
             "description": "JDBC password - passed to dbcp2 (required for non-hsql)",
-            "name": "JDBC_PASSWORD",
+            "name": "JDBC_PASSWORD_BROKER_A",
+            "required": false
+        },
+        {
+            "description": "JDBC url - passed to dbcp2 (required for non-hsql)",
+            "name": "JDBC_URL_BROKER_B",
+            "required": false
+        },
+        {
+            "description": "JDBC username - passed to dbcp2 (required for non-hsql)",
+            "name": "JDBC_USER_BROKER_B",
+            "required": false
+        },
+        {
+            "description": "JDBC password - passed to dbcp2 (required for non-hsql)",
+            "name": "JDBC_PASSWORD_BROKER_B",
+            "required": false
+        },
+        {
+            "description": "JDBC url - passed to dbcp2 (required for non-hsql)",
+            "name": "JDBC_URL_BROKER_C",
+            "required": false
+        },
+        {
+            "description": "JDBC username - passed to dbcp2 (required for non-hsql)",
+            "name": "JDBC_USER_BROKER_C",
+            "required": false
+        },
+        {
+            "description": "JDBC password - passed to dbcp2 (required for non-hsql)",
+            "name": "JDBC_PASSWORD_BROKER_C",
             "required": false
         }
     ],
@@ -355,15 +385,15 @@
                                     },
                                     {
                                         "name": "JDBC_URL",
-                                        "value": "${JDBC_URL}"
+                                        "value": "${JDBC_URL_BROKER_A}"
                                     },
                                     {
                                         "name": "JDBC_USER",
-                                        "value": "${JDBC_USER}"
+                                        "value": "${JDBC_USER_BROKER_A}"
                                     },
                                     {
                                         "name": "JDBC_PASSWORD",
-                                        "value": "${JDBC_PASSWORD}"
+                                        "value": "${JDBC_PASSWORD_BROKER_A}"
                                     }
                                 ]
                             }                            
@@ -522,15 +552,15 @@
                                     },
                                     {
                                         "name": "JDBC_URL",
-                                        "value": "${JDBC_URL}"
+                                        "value": "${JDBC_URL_BROKER_B}"
                                     },
                                     {
                                         "name": "JDBC_USER",
-                                        "value": "${JDBC_USER}"
+                                        "value": "${JDBC_USER_BROKER_B}"
                                     },
                                     {
                                         "name": "JDBC_PASSWORD",
-                                        "value": "${JDBC_PASSWORD}"
+                                        "value": "${JDBC_PASSWORD_BROKER_B}"
                                     }
                                 ]
                             }                            
@@ -689,15 +719,15 @@
                                     },
                                     {
                                         "name": "JDBC_URL",
-                                        "value": "${JDBC_URL}"
+                                        "value": "${JDBC_URL_BROKER_C}"
                                     },
                                     {
                                         "name": "JDBC_USER",
-                                        "value": "${JDBC_USER}"
+                                        "value": "${JDBC_USER_BROKER_C}"
                                     },
                                     {
                                         "name": "JDBC_PASSWORD",
-                                        "value": "${JDBC_PASSWORD}"
+                                        "value": "${JDBC_PASSWORD_BROKER_C}"
                                     }
                                 ]
                             }                            
